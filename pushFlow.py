@@ -1,4 +1,4 @@
-from utils import INF
+from defines import *
 
 
 class PushFlow:

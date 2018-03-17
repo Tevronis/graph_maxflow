@@ -1,6 +1,6 @@
 # coding=utf-8
 import collections
-from utils import INF
+from defines import *
 
 
 class Dinica:

@@ -1,5 +1,8 @@
-import dinica
-import pushFlow
+import generator
+from dinica import Dinica
+from pushFlow import PushFlow
+import networkx as nx
+import matplotlib.pyplot as plt
 import utils
 
 
@@ -31,7 +34,7 @@ def initGraphFrom():
 
 
 def initGraph(n):
-    G = [[dinica.edge() for y in range(n)] for x in range(n)]
+    G = [[utils.edge() for y in range(n)] for x in range(n)]
     G[0][1].cup = 3
     G[1][3].cup = 1
     G[0][2].cup = 1
@@ -43,26 +46,31 @@ def initGraph(n):
 def main():
     n = 4
     m = 5
-    # G = initGraph(n)
-
     s = 0
     t = n - 1
 
-    # pf = pushFlow.PushFlow(G, n, s, t)
-    # print(pf.findMaxFlow())
+    # M = readAdjacencyListToMatrix()
+    # M = readMatrix()
+    M = generator.GraphGenerator(10, 10)
 
-    # G = initGraph(n)
-    # dc = Dinica.Dinica(G, n, s, t)
-    # print(dc.findMaxFlow())
-
-    M = readAdjacencyListToMatrix()
-
+    M = next(M)
+    M = initGraph(4)
+    DG = nx.DiGraph()
+    for i in range(len(M)):
+        for j in range(len(M)):
+            print(M[i][j].cup, end=' ')
+            if M[i][j].cup > 0:
+                DG.add_weighted_edges_from([(i, j, M[i][j].cup)])
+        print('\n')
+    nx.draw(DG, with_labels=True, font_weight='bold')
+    plt.show()
+    return
     G = initGraphFromMatrix(M)
-    flow = pushFlow.PushFlow(G, len(M), s, t).findMaxFlow()
+    flow = PushFlow(G, len(M), s, t).findMaxFlow()
     print(flow)
 
     G = initGraphFromMatrix(M)
-    flow = dinica.Dinica(G, len(M), s, len(M) - 1).findMaxFlow()
+    flow = Dinica(G, len(M), s, len(M) - 1).findMaxFlow()
     print(flow)
 
 main()
