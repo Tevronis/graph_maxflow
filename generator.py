@@ -18,7 +18,7 @@ class GraphGenerator:
         self.mode = LIST
 
     def gen(self):
-        result = [[edge(cup=self.generate_cup()) for y in range(self.n)] for x in range(self.n)]
+        result = [[self.generate_cup() for y in range(self.n)] for x in range(self.n)]
         return result
 
     def generate_cup(self):

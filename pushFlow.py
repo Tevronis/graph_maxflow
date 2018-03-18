@@ -1,26 +1,22 @@
 from defines import *
+from maxFlowAlgo import MaxFlowAlgo
 
 
-class PushFlow:
+class PushFlow(MaxFlowAlgo):
 
     def __init__(self, G, n, start, finish):
-        self.n = n
-        self.maxFlow = 0
-        self.start = start
-        self.finish = finish
-
+        super().__init__(G, n, start, finish)
         self.high = [0 for _ in range(n)]
         self.e = [0 for _ in range(n)]
-        self.graph = G  # [[edge x n] x n]
 
-    def push(self, u, v):
+    def __push(self, u, v):
         d = min(self.e[u], self.graph[u][v].cup - self.graph[u][v].flow)
         self.graph[u][v].flow += d
         self.graph[v][u].flow = -self.graph[u][v].flow
         self.e[u] -= d
         self.e[v] += d
 
-    def lift(self, u):
+    def __lift(self, u):
         d = INF
         for i in range(self.n):
             if self.graph[u][i].cup - self.graph[u][i].flow > 0:
@@ -54,12 +50,13 @@ class PushFlow:
                 j += 1
 
             if j < n:
-                self.push(i, j)
+                self.__push(i, j)
             else:
-                self.lift(i)
+                self.__lift(i)
 
         for i in range(n):
             if self.graph[0][i].cup:
                 self.maxFlow += self.graph[0][i].flow
 
         return self.maxFlow
+

@@ -1,19 +1,16 @@
 # coding=utf-8
 import collections
 from defines import *
+from maxFlowAlgo import MaxFlowAlgo
 
 
-class Dinica:
+class Dinica(MaxFlowAlgo):
     def __init__(self, G, n, start, finish):
-        self.n = n
-        self.maxFlow = 0
-        self.start = start
-        self.finish = finish
+        super().__init__(G, n, start, finish)
         self.p = []
         self.d = []
-        self.graph = G  # [[edge x n] x n]
 
-    def bfs(self):
+    def __bfs(self):
         self.d = [INF for i in range(self.n)]
         self.d[self.start] = 0
         q = collections.deque()
@@ -26,13 +23,13 @@ class Dinica:
                     q.append(v)
         return self.d[self.finish] != INF
 
-    def dfs(self, u, flow):
+    def __dfs(self, u, flow):
         if u == self.finish or flow == 0:
             return flow
         while self.p[u] < self.n:
             v = self.p[u]
             if self.d[v] == self.d[u] + 1:
-                delta = self.dfs(v, min(flow, self.graph[u][v].cup - self.graph[u][v].flow))
+                delta = self.__dfs(v, min(flow, self.graph[u][v].cup - self.graph[u][v].flow))
                 if delta:
                     self.graph[u][v].flow += delta
                     self.graph[v][u].flow -= delta
@@ -41,10 +38,11 @@ class Dinica:
         return 0
 
     def findMaxFlow(self):
-        while self.bfs():  # пересчитываем d[i], проверяем достижима ли t из s
+        while self.__bfs():  # пересчитываем d[i], проверяем достижима ли t из s
             self.p = [0 for i in range(self.n)]
-            flow = self.dfs(self.start, INF)
+            flow = self.__dfs(self.start, INF)
             while flow != 0:
                 self.maxFlow += flow
-                flow = self.dfs(self.start, INF)
+                flow = self.__dfs(self.start, INF)
         return self.maxFlow
+
