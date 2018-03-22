@@ -13,7 +13,7 @@ t = n - 1
 
 
 def main():
-    M = generator.GraphGenerator(10, 10)
+    M = generator.GraphGenerator(7, 10)
 
     M = next(M)
     # M = readMatrix()

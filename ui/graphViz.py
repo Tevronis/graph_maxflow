@@ -17,7 +17,15 @@ class GraphViz:
         self.pos = nx.spring_layout(self.DG)
 
     def __getEdgeColor(self, flow, cup):
-        return "#F80000"
+        # power = int((flow / cup) * 10) + 1
+        # return "#F" + str(power) + "0000"
+        if flow == 0:
+            return "#280000"
+        elif flow < cup:
+            return "#780000"
+        else:
+            return "#F80000"
+        # "#F80000"
 
     def __drawEdges(self):
         nx.draw_networkx_edge_labels(self.DG, self.pos, edge_labels=self.edge_labels)
@@ -28,7 +36,8 @@ class GraphViz:
     def draw(self):
         self.__drawEdges()
         #nx.write_dot(G, 'multi.dot')
-        nx.draw_networkx(self.DG, self.pos, with_labels=True, edge_color=self.edge_colors)
+        nx.draw_circular(self.DG, with_labels=True, edge_color=self.edge_colors)
+        #nx.draw_networkx(self.DG, self.pos, with_labels=True, edge_color=self.edge_colors)
 
     def __initEdge(self, x, y, flow, cup):
         if self.G[y][x].cup > 0:
