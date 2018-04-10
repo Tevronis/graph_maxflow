@@ -36,8 +36,8 @@ class GraphViz:
     def draw(self):
         self.__drawEdges()
         #nx.write_dot(G, 'multi.dot')
-        nx.draw_circular(self.DG, with_labels=True, edge_color=self.edge_colors)
-        #nx.draw_networkx(self.DG, self.pos, with_labels=True, edge_color=self.edge_colors)
+        # nx.draw_circular(self.DG, with_labels=True, edge_color=self.edge_colors)
+        nx.draw_networkx(self.DG, self.pos, with_labels=True, edge_color=self.edge_colors)
 
     def __initEdge(self, x, y, flow, cup):
         if self.G[y][x].cup > 0:

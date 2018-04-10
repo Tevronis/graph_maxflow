@@ -4,6 +4,7 @@ from pushFlow import PushFlow
 import networkx as nx
 import matplotlib.pyplot as plt
 from graph import Graph
+from ui import viz
 from ui.graphViz import GraphViz
 
 n = 4
