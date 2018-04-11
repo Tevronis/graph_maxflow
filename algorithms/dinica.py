@@ -1,7 +1,7 @@
 # coding=utf-8
 import collections
 from defines import *
-from maxFlowAlgo import MaxFlowAlgo
+from algorithms import MaxFlowAlgo
 
 
 class Dinica(MaxFlowAlgo):

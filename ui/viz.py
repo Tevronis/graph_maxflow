@@ -1,12 +1,11 @@
 # coding=utf-8
-import random
-import sys 
+import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QGridLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 from graph import Graph
-from pushFlow import PushFlow
+from algorithms.pushFlow import PushFlow
 from ui import design
 from properties import s, t
 from ui.graphViz import GraphViz
@@ -22,13 +21,28 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_Dialog):
         self.setLayout(grid)
         self.figure = plt.figure()
         self.canvas = FigureCanvas(self.figure)
-        # self.gridLayoutWidget.addWidget(self.canvas, 0, 1, 9, 9)
         self.gridLayout.addWidget(self.canvas, 0, 1, 9, 9)
-        #grid.addWidget(self.canvas, 0, 1, 9, 9)
+        print(self.listWidget.selectedItems())
+        self.executeBtn.clicked.connect(self.handler_push_flow)
 
-        self.executeBtn.clicked.connect(self.pushFlow)
+    def handler_push_flow(self):
+        for item in self.listWidget.selectedItems():
+            print(item)
+        self.figure.clf()
+        M = Graph.readMatrixFromFile('input')
+        G = Graph.initGraphFromMatrix(M)
+        pf = PushFlow(G, len(M), s, t)
+        pf.findMaxFlow()
+        pf.printFlow()
+        pf.printCup()
+        print(pf.getMaxFlow())
 
-    def pushFlow(self):
+        gv = GraphViz(G)
+        plt.axis('off')
+        gv.draw()
+        self.canvas.draw_idle()
+
+    def handler_dinica(self):
         self.figure.clf()
         M = Graph.readMatrixFromFile('input')
         G = Graph.initGraphFromMatrix(M)

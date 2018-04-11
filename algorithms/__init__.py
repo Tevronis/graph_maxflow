@@ -1,6 +1,4 @@
 # coding=utf-8
-import collections
-from defines import *
 
 
 class MaxFlowAlgo:

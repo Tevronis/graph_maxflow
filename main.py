@@ -1,10 +1,7 @@
 import generator
-from dinica import Dinica
-from pushFlow import PushFlow
-import networkx as nx
+from algorithms.pushFlow import PushFlow
 import matplotlib.pyplot as plt
 from graph import Graph
-from ui import viz
 from ui.graphViz import GraphViz
 
 n = 4

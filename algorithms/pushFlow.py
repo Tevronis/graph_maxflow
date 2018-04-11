@@ -1,5 +1,5 @@
 from defines import *
-from maxFlowAlgo import MaxFlowAlgo
+from algorithms import MaxFlowAlgo
 
 
 class PushFlow(MaxFlowAlgo):
