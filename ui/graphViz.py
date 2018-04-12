@@ -7,7 +7,13 @@ class GraphViz:
         self.G = G
         self.DG = nx.DiGraph()
         self.edge_colors = []
+        self.node_pos = {}
         n = len(G)
+
+        for i in range(n):
+            self.DG.add_node(i)
+            self.node_pos[i] = i * 100
+
         for i in range(n):
             for j in range(n):
                 if G[i][j].cup > 0:
@@ -31,13 +37,14 @@ class GraphViz:
         nx.draw_networkx_edge_labels(self.DG, self.pos, edge_labels=self.edge_labels)
 
     def __drawNodes(self):
-        pass
+        nx.draw_networkx_nodes(self.DG, self.node_pos)
 
     def draw(self):
         self.__drawEdges()
+        # self.__drawNodes()
         #nx.write_dot(G, 'multi.dot')
         # nx.draw_circular(self.DG, with_labels=True, edge_color=self.edge_colors)
-        nx.draw_networkx(self.DG, self.pos, with_labels=True, edge_color=self.edge_colors)
+        nx.draw_networkx(self.DG, self.node_pos, with_labels=True, edge_color=self.edge_colors)
 
     def __initEdge(self, x, y, flow, cup):
         if self.G[y][x].cup > 0:

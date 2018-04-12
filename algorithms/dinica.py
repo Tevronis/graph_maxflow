@@ -9,6 +9,7 @@ class Dinica(MaxFlowAlgo):
         super().__init__(G, n, start, finish)
         self.p = []
         self.d = []
+        self.findMaxFlow()
 
     def __bfs(self):
         self.d = [INF for i in range(self.n)]

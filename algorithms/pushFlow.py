@@ -8,6 +8,7 @@ class PushFlow(MaxFlowAlgo):
         super().__init__(G, n, start, finish)
         self.high = [0 for _ in range(n)]
         self.e = [0 for _ in range(n)]
+        self.findMaxFlow()
 
     def __push(self, u, v):
         d = min(self.e[u], self.graph[u][v].cup - self.graph[u][v].flow)

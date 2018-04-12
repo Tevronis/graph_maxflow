@@ -41,7 +41,7 @@
      <string>Time:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="label_edges">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -54,7 +54,7 @@
      <string>Edges:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="label_vertexes">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -67,7 +67,7 @@
      <string>Vertex:</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -121,6 +121,19 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label_flow">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>320</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Flow</string>
+    </property>
    </widget>
   </widget>
   <widget class="QFrame" name="frame_top">
@@ -223,14 +236,19 @@
      <string>Edges cnt:</string>
     </property>
    </widget>
-   <zorder>label_load_from_file</zorder>
-   <zorder>lineEdit</zorder>
-   <zorder>line</zorder>
-   <zorder>label_4</zorder>
-   <zorder>label_5</zorder>
-   <zorder>lineEdit_2</zorder>
-   <zorder>lineEdit_3</zorder>
-   <zorder>label_5</zorder>
+   <widget class="QPushButton" name="generateBtn">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>10</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Generate</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QFrame" name="frame_bottom">
    <property name="geometry">
