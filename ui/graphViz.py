@@ -1,30 +1,35 @@
+import itertools
+
 import networkx as nx
 import matplotlib.pyplot as plt
 
 
 class GraphViz:
-    def __init__(self, G):
+    def __init__(self, G, only_way=False):
         self.G = G
         self.DG = nx.DiGraph()
         self.edge_colors = []
         self.node_pos = {}
-        n = len(G)
-
-        #for i in range(n):
-        #    self.DG.add_node(i)
-        #    self.node_pos[i] = i * 100
-
-        for i in range(n):
-            for j in range(n):
-                if G[i][j].cup > 0:
-                    self.__initEdge(i, j, G[i][j].flow, G[i][j].cup)
-
+        self.ONLY_WAY = only_way
+        self.n = len(G)
+        self.__init_graph()
         self.edge_labels = nx.get_edge_attributes(self.DG, 'route')
         self.pos = nx.shell_layout(self.DG)
 
+    def __init_graph(self):
+        if self.ONLY_WAY:
+            [self.__initEdge(i, j, self.G[i][j].flow, self.G[i][j].cup) for i, j in
+             itertools.combinations_with_replacement(range(self.n), 2) if self.G[i][j].cup > 0 and self.G[i][j].flow > 0]
+            #for i in range(self.n):
+            #   for j in range(self.n):
+            #        if self.G[i][j].cup > 0 and self.G[i][j].flow > 0:
+            #            self.__initEdge(i, j, self.G[i][j].flow, self.G[i][j].cup)
+        else:
+            [self.__initEdge(i, j, self.G[i][j].flow, self.G[i][j].cup) for i, j in
+             itertools.combinations_with_replacement(range(self.n), 2) if self.G[i][j].cup > 0]
+
+
     def __getEdgeColor(self, flow, cup):
-        # power = int((flow / cup) * 10) + 1
-        # return "#F" + str(power) + "0000"
         if flow == 0:
             return "#280000"
         elif flow < cup:
@@ -41,10 +46,6 @@ class GraphViz:
 
     def draw(self):
         self.__drawEdges()
-        # self.__drawNodes()
-        # nx.write_dot(G, 'multi.dot')
-        # nx.draw_circular(self.DG, with_labels=True, edge_color=self.edge_colors)
-        # nx.draw_networkx(self.DG, self.pos, with_labels=True, edge_color=self.edge_colors)
         nx.draw_shell(self.DG,  with_labels=True, edge_color=self.edge_colors)
 
     def __initEdge(self, x, y, flow, cup):

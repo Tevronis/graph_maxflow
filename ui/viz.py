@@ -24,8 +24,11 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
                              "Alg push_flow": self.handler_push_flow,
                              "Generate mod": self.handler_generate_graph,
                              "File mod": self.handler_load_from_file,
-                             "Generate next": self.handler_generate_next}
+                             "Generate next": self.handler_generate_next,
+                             "Draw": self.handler_draw_graph,
+                             "Draw only way": self.handler_draw_onlyway_graph}
         self.flow_algorithm = None
+        self.graph = None
         self.matrix = []
 
         grid = QGridLayout()
@@ -37,6 +40,12 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.executeBtn.clicked.connect(self.handler_execute_from_listbox)
         self.loadBtn.clicked.connect(self.handler_load_from_file)
         self.generateBtn.clicked.connect(self.handler_generate_graph)
+
+    def handler_draw_graph(self):
+        self.__draw(self.graph)
+
+    def handler_draw_onlyway_graph(self):
+        self.__draw(self.graph, True)
 
     def handler_load_from_file(self):
         self.set_file_mod()
@@ -83,25 +92,23 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
 
     def handler_push_flow(self):
         M = self.matrix
-        G = Graph.initGraphFromMatrix(M)
+        self.graph = Graph.initGraphFromMatrix(M)
         s, t = 0, len(M) - 1
-        self.flow_algorithm = PushFlow(G, len(M), s, t)
+        self.flow_algorithm = PushFlow(self.graph, len(M), s, t)
         self.label_time.setText("Time: {:.6f} sec".format(self.flow_algorithm.time))
         self.label_flow.setText("Flow: {}".format(self.flow_algorithm.getMaxFlow()))
-        self.__draw(G)
 
     def handler_dinica(self):
         M = self.matrix
-        G = Graph.initGraphFromMatrix(M)
+        self.graph = Graph.initGraphFromMatrix(M)
         s, t = 0, len(M) - 1
-        self.flow_algorithm = Dinica(G, len(M), s, t)
+        self.flow_algorithm = Dinica(self.graph, len(M), s, t)
         self.label_time.setText("Time: {:.6f} sec".format(self.flow_algorithm.time))
         self.label_flow.setText("Flow: {}".format(self.flow_algorithm.getMaxFlow()))
-        self.__draw(G)
 
-    def __draw(self, G):
+    def __draw(self, G, only_way=False):
         self.figure.clf()
-        gv = GraphViz(G)
+        gv = GraphViz(G, only_way)
         plt.axis('off')
         gv.draw()
         self.canvas.draw_idle()

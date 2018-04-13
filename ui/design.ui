@@ -181,6 +181,16 @@
             <string>File mod</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>Draw</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Draw only way</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item>
