@@ -1,6 +1,6 @@
-
 import networkx as nx
 import matplotlib.pyplot as plt
+
 
 class GraphViz:
     def __init__(self, G):
@@ -10,9 +10,9 @@ class GraphViz:
         self.node_pos = {}
         n = len(G)
 
-        for i in range(n):
-            self.DG.add_node(i)
-            self.node_pos[i] = i * 100
+        #for i in range(n):
+        #    self.DG.add_node(i)
+        #    self.node_pos[i] = i * 100
 
         for i in range(n):
             for j in range(n):
@@ -20,7 +20,7 @@ class GraphViz:
                     self.__initEdge(i, j, G[i][j].flow, G[i][j].cup)
 
         self.edge_labels = nx.get_edge_attributes(self.DG, 'route')
-        self.pos = nx.spring_layout(self.DG)
+        self.pos = nx.shell_layout(self.DG)
 
     def __getEdgeColor(self, flow, cup):
         # power = int((flow / cup) * 10) + 1
@@ -34,7 +34,7 @@ class GraphViz:
         # "#F80000"
 
     def __drawEdges(self):
-        nx.draw_networkx_edge_labels(self.DG, self.pos, edge_labels=self.edge_labels)
+        nx.draw_networkx_edge_labels(self.DG, self.pos, edge_labels=self.edge_labels, clip_on=False)    # clip_on opt
 
     def __drawNodes(self):
         nx.draw_networkx_nodes(self.DG, self.node_pos)
@@ -42,13 +42,15 @@ class GraphViz:
     def draw(self):
         self.__drawEdges()
         # self.__drawNodes()
-        #nx.write_dot(G, 'multi.dot')
+        # nx.write_dot(G, 'multi.dot')
         # nx.draw_circular(self.DG, with_labels=True, edge_color=self.edge_colors)
-        nx.draw_networkx(self.DG, self.node_pos, with_labels=True, edge_color=self.edge_colors)
+        # nx.draw_networkx(self.DG, self.pos, with_labels=True, edge_color=self.edge_colors)
+        nx.draw_shell(self.DG,  with_labels=True, edge_color=self.edge_colors)
 
     def __initEdge(self, x, y, flow, cup):
         if self.G[y][x].cup > 0:
-            edge_label = "{0}->{1}: {2}/{3}\n{1}->{0}: {4}/{5}".format(x, y, flow, cup, self.G[y][x].flow, self.G[y][x].cup)
+            edge_label = "{0}->{1}: {2}/{3}\n{1}->{0}: {4}/{5}".format(x, y, flow, cup, self.G[y][x].flow,
+                                                                       self.G[y][x].cup)
         else:
             edge_label = "{0}/{1}".format(flow, cup)
         self.DG.add_edge(x, y, route=edge_label)

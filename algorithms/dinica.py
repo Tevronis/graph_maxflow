@@ -1,4 +1,6 @@
 # coding=utf-8
+import time
+
 import collections
 from defines import *
 from algorithms import MaxFlowAlgo
@@ -9,7 +11,9 @@ class Dinica(MaxFlowAlgo):
         super().__init__(G, n, start, finish)
         self.p = []
         self.d = []
+        self._time_start = time.time()
         self.findMaxFlow()
+        self.time = self._time_start - time.time()
 
     def __bfs(self):
         self.d = [INF for i in range(self.n)]
