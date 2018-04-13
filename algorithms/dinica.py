@@ -13,7 +13,7 @@ class Dinica(MaxFlowAlgo):
         self.d = []
         self._time_start = time.time()
         self.findMaxFlow()
-        self.time = self._time_start - time.time()
+        self.time = time.time() - self._time_start
 
     def __bfs(self):
         self.d = [INF for i in range(self.n)]

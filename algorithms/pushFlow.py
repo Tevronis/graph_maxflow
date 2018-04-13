@@ -12,7 +12,7 @@ class PushFlow(MaxFlowAlgo):
         self.e = [0 for _ in range(n)]
         self._time_start = time.time()
         self.findMaxFlow()
-        self.time = self._time_start - time.time()
+        self.time = time.time() - self._time_start
 
     def __push(self, u, v):
         d = min(self.e[u], self.graph[u][v].cup - self.graph[u][v].flow)
