@@ -42,10 +42,10 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.generateBtn.clicked.connect(self.handler_generate_graph)
 
     def handler_draw_graph(self):
-        self.__draw(self.graph)
+        self.__draw(self.flow_algorithm.getGraph())
 
     def handler_draw_onlyway_graph(self):
-        self.__draw(self.graph, True)
+        self.__draw(self.flow_algorithm.getGraph(), True)
 
     def handler_load_from_file(self):
         self.set_file_mod()

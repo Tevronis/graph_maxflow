@@ -21,6 +21,7 @@ class PushFlow(MaxFlowAlgo):
         self.e[u] -= d
         self.e[v] += d
 
+
     def __lift(self, u):
         d = INF
         for i in range(self.n):

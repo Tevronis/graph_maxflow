@@ -12,6 +12,9 @@ class MaxFlowAlgo:
     def findMaxFlow(self):
         pass
 
+    def getGraph(self):
+        return self.graph
+
     def printFlow(self):
         print('flow')
         n = self.n

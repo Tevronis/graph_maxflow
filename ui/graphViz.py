@@ -17,17 +17,16 @@ class GraphViz:
         self.pos = nx.shell_layout(self.DG)
 
     def __init_graph(self):
+        def get_indexes(n):
+            for i in range(n):
+                for j in range(n):
+                    yield i, j
         if self.ONLY_WAY:
             [self.__initEdge(i, j, self.G[i][j].flow, self.G[i][j].cup) for i, j in
-             itertools.combinations_with_replacement(range(self.n), 2) if self.G[i][j].cup > 0 and self.G[i][j].flow > 0]
-            #for i in range(self.n):
-            #   for j in range(self.n):
-            #        if self.G[i][j].cup > 0 and self.G[i][j].flow > 0:
-            #            self.__initEdge(i, j, self.G[i][j].flow, self.G[i][j].cup)
+             get_indexes(self.n) if self.G[i][j].cup > 0 and self.G[i][j].flow > 0]
         else:
             [self.__initEdge(i, j, self.G[i][j].flow, self.G[i][j].cup) for i, j in
-             itertools.combinations_with_replacement(range(self.n), 2) if self.G[i][j].cup > 0]
-
+             get_indexes(self.n) if self.G[i][j].cup > 0]
 
     def __getEdgeColor(self, flow, cup):
         if flow == 0:
@@ -39,14 +38,14 @@ class GraphViz:
         # "#F80000"
 
     def __drawEdges(self):
-        nx.draw_networkx_edge_labels(self.DG, self.pos, edge_labels=self.edge_labels, clip_on=False)    # clip_on opt
+        nx.draw_networkx_edge_labels(self.DG, self.pos, edge_labels=self.edge_labels, clip_on=False)  # clip_on opt
 
     def __drawNodes(self):
         nx.draw_networkx_nodes(self.DG, self.node_pos)
 
     def draw(self):
         self.__drawEdges()
-        nx.draw_shell(self.DG,  with_labels=True, edge_color=self.edge_colors)
+        nx.draw_shell(self.DG, with_labels=True, edge_color=self.edge_colors)
 
     def __initEdge(self, x, y, flow, cup):
         if self.G[y][x].cup > 0:
