@@ -148,6 +148,7 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label_load_from_file.setText(_translate("Dialog", "Загрузить граф из файла"))
+        self.lineEdit.setText(_translate("Dialog", "input"))
         self.loadBtn.setText(_translate("Dialog", "Загрузить"))
         self.label_4.setText(_translate("Dialog", "Колличество вершин:"))
         self.label_5.setText(_translate("Dialog", "Колличество рёбер:"))
