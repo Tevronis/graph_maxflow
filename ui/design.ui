@@ -35,7 +35,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label_load_from_file">
         <property name="text">
-         <string>Load graph from file:</string>
+         <string>Загрузить граф из файла</string>
         </property>
         <property name="buddy">
          <cstring>listWidget</cstring>
@@ -55,7 +55,7 @@
       <item row="0" column="2" rowspan="2">
        <widget class="QPushButton" name="loadBtn">
         <property name="text">
-         <string>Load</string>
+         <string>Загрузить</string>
         </property>
        </widget>
       </item>
@@ -64,14 +64,14 @@
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>Vertex cnt:</string>
+           <string>Колличество вершин:</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>Edges cnt:</string>
+           <string>Колличество рёбер:</string>
           </property>
          </widget>
         </item>
@@ -100,13 +100,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item row="0" column="5" rowspan="2">
-       <widget class="QPushButton" name="generateBtn">
-        <property name="text">
-         <string>Set params</string>
-        </property>
-       </widget>
       </item>
       <item row="1" column="0">
        <widget class="Line" name="line">
@@ -150,7 +143,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Avalible Actions:</string>
+           <string>Доступные действия</string>
           </property>
          </widget>
         </item>
@@ -158,37 +151,37 @@
          <widget class="QListWidget" name="listWidget">
           <item>
            <property name="text">
-            <string>Generate next</string>
+            <string>Создать новый граф</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Alg push_flow</string>
+            <string>Проталкивание предпотока</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Alg Dinica</string>
+            <string>Алгоритм Диницы</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Generate mod</string>
+            <string>Режим генерации</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>File mod</string>
+            <string>Режим считывания из файла</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Draw</string>
+            <string>Отрисовать всё</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Draw only way</string>
+            <string>Отрисовать только путь</string>
            </property>
           </item>
          </widget>
@@ -196,7 +189,7 @@
         <item>
          <widget class="QPushButton" name="executeBtn">
           <property name="text">
-           <string>Execute</string>
+           <string>Выполнить</string>
           </property>
          </widget>
         </item>
@@ -205,28 +198,28 @@
       <item>
        <widget class="QLabel" name="label_time">
         <property name="text">
-         <string>Time:</string>
+         <string>Время:</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_edges">
         <property name="text">
-         <string>Edges:</string>
+         <string>Ребра:</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_vertexes">
         <property name="text">
-         <string>Vertex:</string>
+         <string>Вершины:</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_flow">
         <property name="text">
-         <string>Flow</string>
+         <string>Максимальны поток:</string>
         </property>
        </widget>
       </item>
@@ -267,7 +260,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_status">
         <property name="text">
-         <string>Status:</string>
+         <string>Статус:</string>
         </property>
        </widget>
       </item>

@@ -1,4 +1,3 @@
-import itertools
 import random
 
 from defines import *
@@ -21,7 +20,7 @@ class GraphGenerator:
         self.mode = LIST
 
     def gen_matrix(self):
-        def get_indexs():
+        def get_indexes():
             x, y = 0, 0
             while x == y and not (x, y) in self._used:
                 x, y = random.randint(0, self.n - 1), random.randint(0, self.n - 1)
@@ -30,7 +29,7 @@ class GraphGenerator:
 
         result = [[0 for x in range(self.n)] for y in range(self.n)]
         for x in range(self.m):
-            idx, jdx = get_indexs()
+            idx, jdx = get_indexes()
             result[idx][jdx] = self.generate_cup(idx, jdx)
         return result
 
@@ -38,6 +37,7 @@ class GraphGenerator:
         if M is None: return False
 
         length = [0]
+
         def dfs(u, d, length):
             if u == len(M) - 1:
                 length[0] = d

@@ -1,6 +1,7 @@
 # coding=utf-8
 import sys
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import QModelIndex
 from PyQt5.QtWidgets import QGridLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
@@ -20,13 +21,13 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.setupUi(self)
 
         self.GENERATE = True
-        self.HANDLER_DICT = {"Alg Dinica": self.handler_dinica,
-                             "Alg push_flow": self.handler_push_flow,
-                             "Generate mod": self.handler_generate_graph,
-                             "File mod": self.handler_load_from_file,
-                             "Generate next": self.handler_generate_next,
-                             "Draw": self.handler_draw_graph,
-                             "Draw only way": self.handler_draw_onlyway_graph}
+        self.HANDLER_DICT = {"Алгоритм Диницы": self.handler_dinica,
+                             "Проталкивание предпотока": self.handler_push_flow,
+                             "Режим генерации": self.handler_generate_graph,
+                             "Режим считывания из файла": self.handler_load_from_file,
+                             "Создать новый граф": self.handler_generate_next,
+                             "Отрисовать всё": self.handler_draw_graph,
+                             "Отрисовать только путь": self.handler_draw_onlyway_graph}
         self.flow_algorithm = None
         self.graph = None
         self.matrix = []
@@ -39,7 +40,7 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         print(self.listWidget.selectedItems())
         self.executeBtn.clicked.connect(self.handler_execute_from_listbox)
         self.loadBtn.clicked.connect(self.handler_load_from_file)
-        self.generateBtn.clicked.connect(self.handler_generate_graph)
+        self.listWidget.itemDoubleClicked.connect(self.handler_double_clicked_list)
 
     def handler_draw_graph(self):
         self.__draw(self.flow_algorithm.getGraph())
@@ -74,6 +75,9 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         for command in commands:
             self.HANDLER_DICT[command]()
 
+    def handler_double_clicked_list(self, item):
+        self.HANDLER_DICT[item.text()]()
+
     def __get_gen_atributes(self):
         try:
             x, y = int(self.editVertex.text()), int(self.editEdges.text())
@@ -95,16 +99,18 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.graph = Graph.initGraphFromMatrix(M)
         s, t = 0, len(M) - 1
         self.flow_algorithm = PushFlow(self.graph, len(M), s, t)
-        self.label_time.setText("Time: {:.6f} sec".format(self.flow_algorithm.time))
-        self.label_flow.setText("Flow: {}".format(self.flow_algorithm.getMaxFlow()))
+        self.label_time.setText("Время: {:.6f} sec".format(self.flow_algorithm.time))
+        self.label_flow.setText("Максимальный поток: {}".format(self.flow_algorithm.getMaxFlow()))
+        self.label_status.setText('Статус: {}'.format('выполнен алгоритм проталкивания предпотока'))
 
     def handler_dinica(self):
         M = self.matrix
         self.graph = Graph.initGraphFromMatrix(M)
         s, t = 0, len(M) - 1
         self.flow_algorithm = Dinica(self.graph, len(M), s, t)
-        self.label_time.setText("Time: {:.6f} sec".format(self.flow_algorithm.time))
-        self.label_flow.setText("Flow: {}".format(self.flow_algorithm.getMaxFlow()))
+        self.label_time.setText("Время: {:.6f} sec".format(self.flow_algorithm.time))
+        self.label_flow.setText("Максимальный поток: {}".format(self.flow_algorithm.getMaxFlow()))
+        self.label_status.setText('Статус: {}'.format('выполнен алгоритм Диницы'))
 
     def __draw(self, G, only_way=False):
         self.figure.clf()

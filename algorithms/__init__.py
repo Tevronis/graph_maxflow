@@ -16,7 +16,7 @@ class MaxFlowAlgo:
         return self.graph
 
     def printFlow(self):
-        print('flow')
+        print('Поток:')
         n = self.n
         for i in range(n):
             for j in range(n):
@@ -24,7 +24,7 @@ class MaxFlowAlgo:
             print()
 
     def printCup(self):
-        print('cup')
+        print('Пропускная способность:')
         n = self.n
         for i in range(n):
             for j in range(n):

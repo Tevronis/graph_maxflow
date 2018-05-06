@@ -45,7 +45,6 @@ def get_matrix_stats(M):
     return {'e': edges, 'v': vertexes}
 
 
-
 def log_report(*args):
     print(' '.join(map(str, args)))
     with open('..\log.log', 'a') as file:
