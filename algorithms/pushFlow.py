@@ -58,8 +58,7 @@ class PushFlow(MaxFlowAlgo):
             j = 0
             flag = False
             while j < n:
-                if self.graph[i][j].cup - self.graph[i][j].flow > 0 and \
-                        self.high[i] == self.high[j] + 1:
+                if self.graph[i][j].cup - self.graph[i][j].flow > 0 and self.high[i] == self.high[j] + 1:
                     if not(self.graph[i][j].flow == 0 and j == 0):
                         break
                     else:
