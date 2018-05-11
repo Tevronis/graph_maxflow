@@ -21,9 +21,12 @@ class PushFlow(MaxFlowAlgo):
         self.e[u] -= d
         self.e[v] += d
 
-    def __lift(self, u):
+    def __lift(self, u, flag=False):
         d = INF
-        for i in range(self.n):
+        st = 0
+        if flag:
+            st = 1
+        for i in range(st, self.n):
             if self.graph[u][i].cup - self.graph[u][i].flow > 0:
                 d = min(d, self.high[i])
 
@@ -35,10 +38,12 @@ class PushFlow(MaxFlowAlgo):
         for i in range(1, self.n):
             self.graph[0][i].flow = self.graph[0][i].cup
             self.graph[i][0].flow = -self.graph[0][i].cup
-        self.high[0] = self.n + 1
+            self.e[i] = self.graph[0][i].cup
+            self.e[0] -= self.graph[0][i].cup
+        self.high[0] = self.n
 
-        for i in range(1, self.n):
-            self.e[i] = self.graph[0][i].flow
+        #for i in range(1, self.n):
+        #    self.e[i] = self.graph[0][i].flow
 
         while True:
             i = 1
@@ -51,17 +56,21 @@ class PushFlow(MaxFlowAlgo):
                 break
 
             j = 0
+            flag = False
             while j < n:
                 if self.graph[i][j].cup - self.graph[i][j].flow > 0 and \
                         self.high[i] == self.high[j] + 1:
-                    break
+                    if not(self.graph[i][j].flow == 0 and j == 0):
+                        break
+                    else:
+                        flag = True
                 j += 1
 
             if j < n:
                 self.__push(i, j)
             else:
-                self.__lift(i)
-            print('osta: ' + str(self.e))
+                self.__lift(i, flag)
+            print('osta: ' + str(self.e) + ' {} {}'.format(i, j))
             print('high: ' + str(self.high))
             # self.printFlow()
 
