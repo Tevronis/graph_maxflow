@@ -55,3 +55,14 @@ def clear_log():
     with open('..\log.log', 'w') as file:
         file.write('')
     print("Log is cleared")
+
+
+def generator_read_file(name):
+    file = open(name, 'r')
+    n = int(file.readline())
+    while file.readline():
+        M = []
+        for i in range(n):
+            line = file.readline()
+            M.append(list(map(int, line.split())))
+        yield M

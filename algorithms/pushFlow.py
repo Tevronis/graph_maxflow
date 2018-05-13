@@ -69,8 +69,8 @@ class PushFlow(MaxFlowAlgo):
                 self.__push(i, j)
             else:
                 self.__lift(i, flag)
-            print('osta: ' + str(self.e) + ' {} {}'.format(i, j))
-            print('high: ' + str(self.high))
+            # print('osta: ' + str(self.e) + ' {} {}'.format(i, j))
+            # print('high: ' + str(self.high))
             # self.printFlow()
 
         for i in range(n):
