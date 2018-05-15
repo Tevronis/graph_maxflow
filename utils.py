@@ -46,7 +46,7 @@ def get_matrix_stats(M):
 
 
 def log_report(*args):
-    print(' '.join(map(str, args)))
+    #print(' '.join(map(str, args)))
     with open('..\log.log', 'a') as file:
         file.write(' '.join(map(str, args)))
 

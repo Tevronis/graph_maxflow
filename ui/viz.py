@@ -82,7 +82,7 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
 
             graph = Graph.initGraphFromMatrix(M)
             preflow_algorithm = PushFlow(graph, len(M), s, t)
-
+            assert dinica_algorithm.getMaxFlow() == preflow_algorithm.getMaxFlow()
             ans_dinica += dinica_algorithm.time
             ans_preflow += preflow_algorithm.time
         self.set_status('{} тестов, Диница: {}, проталкивание предпотока: {}'.format(count, ans_dinica, ans_preflow))

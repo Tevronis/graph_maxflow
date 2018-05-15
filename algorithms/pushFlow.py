@@ -21,60 +21,34 @@ class PushFlow(MaxFlowAlgo):
         self.e[u] -= d
         self.e[v] += d
 
-    def __lift(self, u, flag=False):
-        d = INF
-        st = 0
-        if flag:
-            st = 1
-        for i in range(st, self.n):
-            if self.graph[u][i].cup - self.graph[u][i].flow > 0:
-                d = min(d, self.high[i])
-
-        if d == INF:
-            return
-        self.high[u] = d + 1
-
     def findMaxFlow(self):
-        for i in range(1, self.n):
+        for i in range(0, self.n):
             self.graph[0][i].flow = self.graph[0][i].cup
             self.graph[i][0].flow = -self.graph[0][i].cup
             self.e[i] = self.graph[0][i].cup
             self.e[0] -= self.graph[0][i].cup
         self.high[0] = self.n
 
-        #for i in range(1, self.n):
-        #    self.e[i] = self.graph[0][i].flow
-
+        n = self.n
         while True:
-            i = 1
-            n = self.n
-            while i < n - 1:
+            v = n
+            for i in range(n - 1):
                 if self.e[i] > 0:
+                    v = i
                     break
-                i += 1
-            if i == n - 1:
+
+            if v == n:
                 break
 
-            j = 0
-            flag = False
-            while j < n:
-                if self.graph[i][j].cup - self.graph[i][j].flow > 0 and self.high[i] == self.high[j] + 1:
-                    if not(self.graph[i][j].flow == 0 and j == 0):
-                        break
-                    else:
-                        flag = True
-                j += 1
+            while self.e[v]:
+                for i in range(0, n):
+                    if self.graph[v][i].cup > self.graph[v][i].flow and self.high[v] > self.high[i]:
+                        self.__push(v, i)
 
-            if j < n:
-                self.__push(i, j)
-            else:
-                self.__lift(i, flag)
-            # print('osta: ' + str(self.e) + ' {} {}'.format(i, j))
-            # print('high: ' + str(self.high))
-            # self.printFlow()
+                if self.e[v] > 0:
+                    self.high[v] += 1
 
-        for i in range(n):
-            if self.graph[0][i].cup:
-                self.maxFlow += self.graph[0][i].flow
-
+        # for i in range(n):
+        #     self.maxFlow += self.graph[0][i].flow
+        self.maxFlow = self.e[n - 1]
         return self.maxFlow
