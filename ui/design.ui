@@ -63,16 +63,6 @@
           </item>
           <item>
            <property name="text">
-            <string>Режим генерации</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Режим считывания из файла</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
             <string>Отрисовать всё</string>
            </property>
           </item>
@@ -197,6 +187,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="text">
+           <string>10</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -210,7 +203,7 @@
          </size>
         </property>
         <property name="text">
-         <string>input</string>
+         <string>--file input</string>
         </property>
        </widget>
       </item>

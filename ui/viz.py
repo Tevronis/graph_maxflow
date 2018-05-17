@@ -20,11 +20,8 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         super().__init__()
         self.setupUi(self)
 
-        self.GENERATE = True
         self.HANDLER_DICT = {"Алгоритм Диницы": self.handler_dinica,
                              "Проталкивание предпотока": self.handler_push_flow,
-                             "Режим генерации": self.handler_generate_graph,
-                             "Режим считывания из файла": self.handler_load_from_file,
                              "Создать новый граф": self.handler_generate_next,
                              "Отрисовать всё": self.handler_draw_graph,
                              "Отрисовать только путь": self.handler_draw_onlyway_graph,
@@ -40,7 +37,7 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.gridLayout.addWidget(self.canvas, 0, 1, 9, 9)
         print(self.listWidget.selectedItems())
         self.executeBtn.clicked.connect(self.handler_execute_from_listbox)
-        #self.loadBtn.clicked.connect(self.handler_load_from_file)
+        # self.loadBtn.clicked.connect(self.handler_load_from_file)
         self.listWidget.itemDoubleClicked.connect(self.handler_double_clicked_list)
 
     def handler_draw_graph(self):
@@ -49,12 +46,7 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
     def handler_draw_onlyway_graph(self):
         self.__draw(self.flow_algorithm.getGraph(), True)
 
-    def handler_load_from_file(self):
-        self.set_file_mod()
-        #self.matrix = self.get_matrix()
-
     def handler_generate_next(self):
-        # self.set_generation_mod()
         self.matrix = self.get_matrix()
         stat = get_matrix_stats(self.matrix)
         self.label_vertexes.setText('Кол-во вершин: ' + str(stat['v']))
@@ -64,12 +56,9 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
     def handler_experiment(self):
         count = int(self.editExperimentCount.text())
 
-        if self.GENERATE:
-            params = self.__get_gen_atributes()
-            params = parse_gen_args(params.split())
-            gen = generator.GraphGenerator(params)
-        else:
-            gen = generator_read_file
+        params = self.__get_gen_atributes()
+        params = parse_gen_args(params.split())
+        gen = generator.GraphGenerator(params)
 
         ans_dinica = 0
         ans_preflow = 0
@@ -86,18 +75,9 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
             assert dinica_algorithm.getMaxFlow() == preflow_algorithm.getMaxFlow()
             ans_dinica += dinica_algorithm.time
             ans_preflow += preflow_algorithm.time
-        self.set_status('{} тестов, Диница: {}, проталкивание предпотока: {}'.format(count, ans_dinica, ans_preflow))
-
-    def handler_generate_graph(self):
-        self.set_generation_mod()
-
-    def set_file_mod(self):
-        self.GENERATE = False
-        self.set_status('установлен режим чтения из файла')
-
-    def set_generation_mod(self):
-        self.GENERATE = True
-        self.set_status('установлен режим генерации')
+        self.set_status(
+            '{} тестов (Средний результат), Диница: {}, проталкивание предпотока: {}'.format(count, ans_dinica / count,
+                                                                                             ans_preflow / count))
 
     def handler_execute_from_listbox(self):
         commands = []
@@ -117,13 +97,10 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         return params
 
     def get_matrix(self):
-        if self.GENERATE:
-            params = self.__get_gen_atributes()
-            params = parse_gen_args(params.split())
-            M = generator.GraphGenerator(params)
-            M = next(M)
-        else:
-            M = Graph.readMatrixFromFile(self.lineEdit.text())
+        params = self.__get_gen_atributes()
+        params = parse_gen_args(params.split())
+        M = generator.GraphGenerator(params)
+        M = next(M)
         return M
 
     def handler_push_flow(self):
@@ -145,12 +122,7 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.set_status('выполнен алгоритм Диницы')
 
     def set_status(self, text):
-        if self.GENERATE:
-            mod = 'генерация случаного графа'
-        else:
-            mod = 'чтение из файла'
-
-        self.label_status.setText('Последнее действие: {}, Режим работы: {}'.format(text, mod))
+        self.label_status.setText('Последнее действие: {}'.format(text))
 
     def __draw(self, G, only_way=False):
         self.figure.clf()

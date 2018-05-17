@@ -1,6 +1,7 @@
 import random
 
 from defines import *
+from graph import Graph
 from utils import log_report, matrix_to_str
 
 
@@ -15,6 +16,7 @@ def generate_allow_edges(n):
 
 class GraphGenerator:
     def __init__(self, params):
+        self.file = params.file if not (params.file is None) else None
         self.n = random.randint(2, 20) if params.n is None else params.n
         self.m = random.randint(self.n, self.n * (self.n - 1)) if params.m is None else params.m
         if self.m > self.n * (self.n - 1):
@@ -86,6 +88,9 @@ class GraphGenerator:
 
     def gen(self):
         result = None
+        if not (self.file is None):
+            return Graph.readMatrixFromFile(self.file)
+
         while not self.check_way(result):
             self.allowable_edges = generate_allow_edges(self.n)
             result = self.gen_matrix()
