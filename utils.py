@@ -1,4 +1,5 @@
 # 1kkk
+import argparse
 import time
 
 
@@ -46,7 +47,7 @@ def get_matrix_stats(M):
 
 
 def log_report(*args):
-    #print(' '.join(map(str, args)))
+    # print(' '.join(map(str, args)))
     with open('..\log.log', 'a') as file:
         file.write(' '.join(map(str, args)))
 
@@ -66,3 +67,13 @@ def generator_read_file(name):
             line = file.readline()
             M.append(list(map(int, line.split())))
         yield M
+
+
+def parse_gen_args(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--n', type=int)
+    parser.add_argument('--m', type=int)
+    parser.add_argument('--cup', type=int)
+    parser.add_argument('--max_cup', type=int)
+    parser.add_argument('--file', type=str)
+    return parser.parse_args(args)

@@ -11,7 +11,7 @@ from algorithms.pushFlow import PushFlow
 from algorithms.dinica import Dinica
 from ui import design
 from ui.graphViz import GraphViz
-from utils import log_report, clear_log, get_matrix_stats, generator_read_file
+from utils import log_report, clear_log, get_matrix_stats, generator_read_file, parse_gen_args
 import matplotlib.pyplot as plt
 
 
@@ -40,7 +40,7 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.gridLayout.addWidget(self.canvas, 0, 1, 9, 9)
         print(self.listWidget.selectedItems())
         self.executeBtn.clicked.connect(self.handler_execute_from_listbox)
-        self.loadBtn.clicked.connect(self.handler_load_from_file)
+        #self.loadBtn.clicked.connect(self.handler_load_from_file)
         self.listWidget.itemDoubleClicked.connect(self.handler_double_clicked_list)
 
     def handler_draw_graph(self):
@@ -51,10 +51,10 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
 
     def handler_load_from_file(self):
         self.set_file_mod()
-        self.matrix = self.get_matrix()
+        #self.matrix = self.get_matrix()
 
     def handler_generate_next(self):
-        self.set_generation_mod()
+        # self.set_generation_mod()
         self.matrix = self.get_matrix()
         stat = get_matrix_stats(self.matrix)
         self.label_vertexes.setText('Кол-во вершин: ' + str(stat['v']))
@@ -65,8 +65,9 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         count = int(self.editExperimentCount.text())
 
         if self.GENERATE:
-            n, m = self.__get_gen_atributes()
-            gen = generator.GraphGenerator(n, m)
+            params = self.__get_gen_atributes()
+            params = parse_gen_args(params.split())
+            gen = generator.GraphGenerator(params)
         else:
             gen = generator_read_file
 
@@ -87,18 +88,16 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
             ans_preflow += preflow_algorithm.time
         self.set_status('{} тестов, Диница: {}, проталкивание предпотока: {}'.format(count, ans_dinica, ans_preflow))
 
-
-
-
-
     def handler_generate_graph(self):
         self.set_generation_mod()
 
     def set_file_mod(self):
         self.GENERATE = False
+        self.set_status('установлен режим чтения из файла')
 
     def set_generation_mod(self):
         self.GENERATE = True
+        self.set_status('установлен режим генерации')
 
     def handler_execute_from_listbox(self):
         commands = []
@@ -112,15 +111,16 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
 
     def __get_gen_atributes(self):
         try:
-            x, y = int(self.editVertex.text()), int(self.editEdges.text())
+            params = self.lineEdit.text()
         except:
-            x, y = 7, 10
-        return x, y
+            params = []
+        return params
 
     def get_matrix(self):
         if self.GENERATE:
-            n, m = self.__get_gen_atributes()
-            M = generator.GraphGenerator(n, m)
+            params = self.__get_gen_atributes()
+            params = parse_gen_args(params.split())
+            M = generator.GraphGenerator(params)
             M = next(M)
         else:
             M = Graph.readMatrixFromFile(self.lineEdit.text())
