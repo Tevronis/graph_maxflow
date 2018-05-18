@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Нахождение максимального потока</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="1" column="0">
@@ -58,17 +58,17 @@
           </item>
           <item>
            <property name="text">
-            <string>Алгоритм Диницы</string>
+            <string>Алгоритм Диница</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Отрисовать всё</string>
+            <string>Отобразить всё</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Отрисовать только путь</string>
+            <string>Отобразить только путь</string>
            </property>
           </item>
           <item>
@@ -203,7 +203,7 @@
          </size>
         </property>
         <property name="text">
-         <string>--file input</string>
+         <string>-file input</string>
         </property>
        </widget>
       </item>
@@ -212,7 +212,7 @@
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Колличество экспериментов:</string>
+           <string>Количество экспериментов:</string>
           </property>
          </widget>
         </item>

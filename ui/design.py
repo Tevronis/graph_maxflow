@@ -134,7 +134,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Нахождение максимального потока"))
         self.label.setText(_translate("Dialog", "Доступные действия"))
         __sortingEnabled = self.listWidget.isSortingEnabled()
         self.listWidget.setSortingEnabled(False)
@@ -143,11 +143,11 @@ class Ui_Dialog(object):
         item = self.listWidget.item(1)
         item.setText(_translate("Dialog", "Проталкивание предпотока"))
         item = self.listWidget.item(2)
-        item.setText(_translate("Dialog", "Алгоритм Диницы"))
+        item.setText(_translate("Dialog", "Алгоритм Диница"))
         item = self.listWidget.item(3)
-        item.setText(_translate("Dialog", "Отрисовать всё"))
+        item.setText(_translate("Dialog", "Отобразить всё"))
         item = self.listWidget.item(4)
-        item.setText(_translate("Dialog", "Отрисовать только путь"))
+        item.setText(_translate("Dialog", "Отобразить только путь"))
         item = self.listWidget.item(5)
         item.setText(_translate("Dialog", "Провести эксперимент"))
         self.listWidget.setSortingEnabled(__sortingEnabled)
@@ -158,7 +158,7 @@ class Ui_Dialog(object):
         self.label_flow.setText(_translate("Dialog", "Максимальны поток:"))
         self.label_status.setText(_translate("Dialog", "Статус:"))
         self.editExperimentCount.setText(_translate("Dialog", "10"))
-        self.lineEdit.setText(_translate("Dialog", "--file input"))
-        self.label_6.setText(_translate("Dialog", "Колличество экспериментов:"))
+        self.lineEdit.setText(_translate("Dialog", "-file input"))
+        self.label_6.setText(_translate("Dialog", "Количество экспериментов:"))
         self.label_load_from_file.setText(_translate("Dialog", "Параметры: "))
 

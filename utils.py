@@ -48,12 +48,12 @@ def get_matrix_stats(M):
 
 def log_report(*args):
     # print(' '.join(map(str, args)))
-    with open('..\log.log', 'a') as file:
+    with open('log.log', 'a') as file:
         file.write(' '.join(map(str, args)))
 
 
 def clear_log():
-    with open('..\log.log', 'w') as file:
+    with open('log.log', 'w') as file:
         file.write('')
     print("Log is cleared")
 
@@ -71,9 +71,9 @@ def generator_read_file(name):
 
 def parse_gen_args(args):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--n', type=int)
-    parser.add_argument('--m', type=int)
-    parser.add_argument('--cup', type=int)
-    parser.add_argument('--max_cup', type=int)
-    parser.add_argument('--file', type=str)
+    parser.add_argument('-n', type=int)
+    parser.add_argument('-m', type=int)
+    parser.add_argument('-cup', type=int)
+    parser.add_argument('-max_cup', type=int)
+    parser.add_argument('-file', type=str)
     return parser.parse_args(args)

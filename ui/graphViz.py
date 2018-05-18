@@ -26,7 +26,7 @@ class GraphViz:
              get_indexes(self.n) if self.G[i][j].cup > 0 and self.G[i][j].flow > 0]
         else:
             [self.__initEdge(i, j, self.G[i][j].flow, self.G[i][j].cup) for i, j in
-             get_indexes(self.n) if self.G[i][j].cup > 0]
+             get_indexes(self.n) if self.G[i][j].cup > 0 and self.G[i][j].flow >= 0]
 
     def __getEdgeColor(self, flow, cup):
         def get_str_hex(value):

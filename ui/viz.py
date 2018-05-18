@@ -20,11 +20,11 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         super().__init__()
         self.setupUi(self)
 
-        self.HANDLER_DICT = {"Алгоритм Диницы": self.handler_dinica,
+        self.HANDLER_DICT = {"Алгоритм Диница": self.handler_dinica,
                              "Проталкивание предпотока": self.handler_push_flow,
                              "Создать новый граф": self.handler_generate_next,
-                             "Отрисовать всё": self.handler_draw_graph,
-                             "Отрисовать только путь": self.handler_draw_onlyway_graph,
+                             "Отобразить всё": self.handler_draw_graph,
+                             "Отобразить только путь": self.handler_draw_onlyway_graph,
                              "Провести эксперимент": self.handler_experiment}
         self.flow_algorithm = None
         self.graph = None
