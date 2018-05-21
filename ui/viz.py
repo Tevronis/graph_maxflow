@@ -68,10 +68,12 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
             s, t = 0, len(M) - 1
 
             graph = Graph.initGraphFromMatrix(M)
-            dinica_algorithm = Dinica(graph, len(M), s, t)
+            preflow_algorithm = PushFlow(graph, len(M), s, t)
 
             graph = Graph.initGraphFromMatrix(M)
-            preflow_algorithm = PushFlow(graph, len(M), s, t)
+            dinica_algorithm = Dinica(graph, len(M), s, t)
+
+
             assert dinica_algorithm.getMaxFlow() == preflow_algorithm.getMaxFlow()
             ans_dinica += dinica_algorithm.time
             ans_preflow += preflow_algorithm.time

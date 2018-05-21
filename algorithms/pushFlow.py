@@ -1,6 +1,5 @@
 import time
 
-from defines import *
 from algorithms import MaxFlowAlgo
 
 
@@ -10,6 +9,12 @@ class PushFlow(MaxFlowAlgo):
         super().__init__(G, n, start, finish)
         self.high = [0 for _ in range(n)]
         self.e = [0 for _ in range(n)]
+        for i in range(0, self.n):
+            self.graph[0][i].flow = self.graph[0][i].cup
+            self.graph[i][0].flow = -self.graph[0][i].cup
+            self.e[i] = self.graph[0][i].cup
+            self.e[0] -= self.graph[0][i].cup
+        self.high[0] = self.n
         self._time_start = time.time()
         self.findMaxFlow()
         self.time = time.time() - self._time_start
@@ -22,12 +27,6 @@ class PushFlow(MaxFlowAlgo):
         self.e[v] += d
 
     def findMaxFlow(self):
-        for i in range(0, self.n):
-            self.graph[0][i].flow = self.graph[0][i].cup
-            self.graph[i][0].flow = -self.graph[0][i].cup
-            self.e[i] = self.graph[0][i].cup
-            self.e[0] -= self.graph[0][i].cup
-        self.high[0] = self.n
 
         n = self.n
         while True:
@@ -48,7 +47,5 @@ class PushFlow(MaxFlowAlgo):
                 if self.e[v] > 0:
                     self.high[v] += 1
 
-        # for i in range(n):
-        #     self.maxFlow += self.graph[0][i].flow
         self.maxFlow = self.e[n - 1]
         return self.maxFlow

@@ -12,9 +12,7 @@ class Profiler(object):
 
 
 class edge:
-    def __init__(self, flow=0, cup=0, first=None, second=None):
-        self.first = first
-        self.second = second
+    def __init__(self, flow=0, cup=0):
         self.flow = flow
         self.cup = cup
 
