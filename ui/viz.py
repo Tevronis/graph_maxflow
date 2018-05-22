@@ -121,7 +121,7 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.flow_algorithm = Dinica(self.graph, len(M), s, t)
         self.label_time.setText("Время: {:.6f} sec".format(self.flow_algorithm.time))
         self.label_flow.setText("Максимальный поток: {}".format(self.flow_algorithm.getMaxFlow()))
-        self.set_status('выполнен алгоритм Диницы')
+        self.set_status('выполнен алгоритм Диница')
 
     def set_status(self, text):
         self.label_status.setText('Последнее действие: {}'.format(text))

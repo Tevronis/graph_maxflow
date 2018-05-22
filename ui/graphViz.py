@@ -38,7 +38,7 @@ class GraphViz:
         delimiter = 6
         RGB = [1, 20, 1]
         cf = int(flow / (cup / delimiter) + 1) * 2
-        log_report('Edge colors: #{}{}{}'.format(get_str_hex(RGB[0] * (cf // 2)), get_str_hex(RGB[1] * cf), get_str_hex(RGB[2])))
+        #log_report('Edge colors: #{}{}{}'.format(get_str_hex(RGB[0] * (cf // 2)), get_str_hex(RGB[1] * cf), get_str_hex(RGB[2])))
         # print('flow: {} cup: {} cf: {}'.format(flow, cup, cf))
         # print('#{}{}{}'.format(get_str_hex(RGB[0] * (cf // 2)), get_str_hex(RGB[1] * cf), get_str_hex(RGB[2])))
         return '#{}{}{}'.format(get_str_hex(RGB[0] * (cf // 2)), get_str_hex(RGB[1] * cf), get_str_hex(RGB[2]))

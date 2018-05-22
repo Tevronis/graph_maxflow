@@ -94,7 +94,7 @@ class GraphGenerator:
         while not self.check_way(result):
             self.allowable_edges = generate_allow_edges(self.n)
             result = self.gen_matrix()
-        # log_report('Generate graph:\n', matrix_to_str(result))
+        log_report('Generate graph:\n', matrix_to_str(result))
         return result
 
     def generate_cup(self):
