@@ -1,18 +1,18 @@
 # coding=utf-8
 import sys
+
+import matplotlib.pyplot as plt
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QModelIndex
 from PyQt5.QtWidgets import QGridLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 import generator
-from graph import Graph
-from algorithms.pushFlow import PushFlow
 from algorithms.dinica import Dinica
+from algorithms.pushFlow import PushFlow
+from graph import Graph
 from ui import design
 from ui.graphViz import GraphViz
-from utils import log_report, clear_log, get_matrix_stats, generator_read_file, parse_gen_args
-import matplotlib.pyplot as plt
+from utils import clear_log, get_matrix_stats, parse_gen_args
 
 
 class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
@@ -37,7 +37,6 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
         self.gridLayout.addWidget(self.canvas, 0, 1, 9, 9)
         print(self.listWidget.selectedItems())
         self.executeBtn.clicked.connect(self.handler_execute_from_listbox)
-        # self.loadBtn.clicked.connect(self.handler_load_from_file)
         self.listWidget.itemDoubleClicked.connect(self.handler_double_clicked_list)
 
     def handler_draw_graph(self):
@@ -72,7 +71,6 @@ class ExampleApp(QtWidgets.QDialog, design.Ui_Dialog):
 
             graph = Graph.initGraphFromMatrix(M)
             dinica_algorithm = Dinica(graph, len(M), s, t)
-
 
             assert dinica_algorithm.getMaxFlow() == preflow_algorithm.getMaxFlow()
             ans_dinica += dinica_algorithm.time
@@ -142,5 +140,5 @@ def run():
     app.exec_()
 
 
-if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
+if __name__ == '__main__':
     run()

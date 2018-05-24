@@ -43,7 +43,7 @@ class Dinica(MaxFlowAlgo):
         return 0
 
     def findMaxFlow(self):
-        while self.__bfs():  # пересчитываем d[i], проверяем достижима ли t из s
+        while self.__bfs():
             self.p = [0 for i in range(self.n)]
             flow = self.__dfs(self.start, INF)
             while flow != 0:

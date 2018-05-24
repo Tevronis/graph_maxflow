@@ -7,7 +7,7 @@ class MaxFlowAlgo:
         self.maxFlow = 0
         self.start = start
         self.finish = finish
-        self.graph = G  # [[edge x n] x n]
+        self.graph = G
 
     def findMaxFlow(self):
         pass
